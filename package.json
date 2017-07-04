@@ -1,0 +1,29 @@
+{
+  "name": "messenger-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "compileES5": "babel --no-babelrc index.js --out-file indexES5.js --presets=es2015"
+  },
+  "private": false,
+  "engines": {
+    "engines": {
+      "node": "6.10.3",
+      "npm": "3.10.10"
+    }
+  },
+  "author": "davidhu34",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "botly": "^1.4.1",
+    "express": "^4.15.3",
+    "request": "^2.81.0"
+  }
+}
