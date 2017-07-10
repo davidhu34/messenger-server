@@ -78,6 +78,18 @@ const reply = (sender, message, data) => {
 			const type = data.type
 			switch (type) {
 				case 'weather':
+				console.log('weather data:', data)
+					bot.sendGeneric({
+						id: sender,
+						elements: [{
+							image_url: data.image,
+							title: data.disc+' | '+data.temp+'℃',
+							subtitle: data.location,
+						}] 	
+					}, (e,d) => {
+						if (e) console.log('sendText error:', e)
+						else console.log('sendText callback:', d)
+					})	
 					break;
 				case 'text':
 				default:

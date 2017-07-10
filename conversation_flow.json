@@ -1,0 +1,343 @@
+[
+    {
+        "id": "388576db.410e1a",
+        "type": "watson-conversation-v1",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "workspaceid": "89a67e22-42d8-4f4c-92e5-1481bb641150",
+        "multiuser": true,
+        "context": true,
+        "x": 267.5000114440918,
+        "y": 104.40003967285156,
+        "wires": [
+            [
+                "d7fdcdf6.cc248",
+                "ba77ff8c.5c6ee"
+            ]
+        ]
+    },
+    {
+        "id": "6dec68d8.c15708",
+        "type": "function",
+        "z": "daa52f43.2dec2",
+        "name": "text output",
+        "func": "msg.payload = {\n    type: 'text',\n    text: msg.payload.output.text[0],\n    user: msg.user,\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 307.5000057220459,
+        "y": 323.6000552177429,
+        "wires": [
+            [
+                "7f126c10.8667e4",
+                "e6a72289.b0465"
+            ]
+        ]
+    },
+    {
+        "id": "37a463f7.d08fcc",
+        "type": "debug",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 315.5000305175781,
+        "y": 50.400028228759766,
+        "wires": []
+    },
+    {
+        "id": "d7fdcdf6.cc248",
+        "type": "debug",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 453.5000534057617,
+        "y": 104.80004596710205,
+        "wires": []
+    },
+    {
+        "id": "81128471.0ec218",
+        "type": "weather_insights",
+        "z": "daa52f43.2dec2",
+        "name": "10-day forecasts",
+        "host": "",
+        "service": "/forecast/daily/10day.json",
+        "geocode": "0,0",
+        "units": "m",
+        "language": "zh-TW",
+        "x": 335.2727584838867,
+        "y": 485.9091320037842,
+        "wires": [
+            [
+                "c9c0cd48.f2bea"
+            ]
+        ]
+    },
+    {
+        "id": "c9c0cd48.f2bea",
+        "type": "function",
+        "z": "daa52f43.2dec2",
+        "name": "get tomorrow",
+        "func": "msg.payload = msg.forecasts[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 504.36365509033203,
+        "y": 486.09093475341797,
+        "wires": [
+            [
+                "16711f1c.417ac1"
+            ]
+        ]
+    },
+    {
+        "id": "c5a0da7e.02c6f8",
+        "type": "weather_insights",
+        "z": "daa52f43.2dec2",
+        "name": "current observations",
+        "host": "",
+        "service": "/observations.json",
+        "geocode": "0,0",
+        "units": "m",
+        "language": "zh-TW",
+        "x": 352.8182144165039,
+        "y": 524.7272720336914,
+        "wires": [
+            [
+                "b4ae6611.dcf3c8"
+            ]
+        ]
+    },
+    {
+        "id": "b4ae6611.dcf3c8",
+        "type": "function",
+        "z": "daa52f43.2dec2",
+        "name": "observation",
+        "func": "msg.payload = msg.observation;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 538.1817932128906,
+        "y": 526.0909204483032,
+        "wires": [
+            [
+                "bf7cdef4.8bca7"
+            ]
+        ]
+    },
+    {
+        "id": "bf7cdef4.8bca7",
+        "type": "debug",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 698.8182067871094,
+        "y": 526.2727565765381,
+        "wires": []
+    },
+    {
+        "id": "f867d143.0dec5",
+        "type": "inject",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "topic": "",
+        "payload": "25.033493,121.564101",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 134.90912628173828,
+        "y": 524.2727069854736,
+        "wires": [
+            [
+                "c5a0da7e.02c6f8"
+            ]
+        ]
+    },
+    {
+        "id": "da1e4197.5c0a6",
+        "type": "inject",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "topic": "",
+        "payload": "25.033493,121.564101",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 135.36365509033203,
+        "y": 486.27273178100586,
+        "wires": [
+            [
+                "81128471.0ec218"
+            ]
+        ]
+    },
+    {
+        "id": "16711f1c.417ac1",
+        "type": "debug",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 665.2726955413818,
+        "y": 485.9091110229492,
+        "wires": []
+    },
+    {
+        "id": "7f126c10.8667e4",
+        "type": "debug",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 468.50001335144043,
+        "y": 372.20001220703125,
+        "wires": []
+    },
+    {
+        "id": "309c61ff.e294be",
+        "type": "http in",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "url": "/message",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 98.10001373291016,
+        "y": 46.800031661987305,
+        "wires": [
+            [
+                "6ab1dd45.6a39d4"
+            ]
+        ]
+    },
+    {
+        "id": "e6a72289.b0465",
+        "type": "http response",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "x": 473.100061416626,
+        "y": 323.2000060081482,
+        "wires": []
+    },
+    {
+        "id": "6ab1dd45.6a39d4",
+        "type": "function",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "func": "var message = JSON.parse(msg.req.body);\nmsg.user = message.sender;\nmsg.payload = message.data.text;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 122.10001373291016,
+        "y": 104.60000419616699,
+        "wires": [
+            [
+                "37a463f7.d08fcc",
+                "388576db.410e1a"
+            ]
+        ]
+    },
+    {
+        "id": "ba77ff8c.5c6ee",
+        "type": "switch",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "property": "payload.intents[0].intent",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "weather",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 124.10000991821289,
+        "y": 202.0000057220459,
+        "wires": [
+            [
+                "8f6d79d1.5cc398"
+            ],
+            [
+                "6dec68d8.c15708"
+            ]
+        ]
+    },
+    {
+        "id": "8f6d79d1.5cc398",
+        "type": "weather_insights",
+        "z": "daa52f43.2dec2",
+        "name": "current weather",
+        "host": "twcservice.mybluemix.net",
+        "service": "/observations.json",
+        "geocode": "25.033493,121.564101",
+        "units": "m",
+        "language": "zh-TW",
+        "x": 307.1000061035156,
+        "y": 195.99999904632568,
+        "wires": [
+            [
+                "68ad7053.ec33d",
+                "d613be09.c03a8"
+            ]
+        ]
+    },
+    {
+        "id": "68ad7053.ec33d",
+        "type": "function",
+        "z": "daa52f43.2dec2",
+        "name": "weather output",
+        "func": "var weather = msg.observation;\nmsg.payload = {\n    type: 'weather',\n    user: msg.user,\n    location: weather.obs_name,\n    temp: weather.temp,\n    disc: weather.wx_phrase,\n    image: 'https://raw.githubusercontent.com/IBM-Bluemix/weather-company-data-demo/master/public/images/weathericons/icon'+weather.wx_icon+'.png'\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 491.10005950927734,
+        "y": 195.80004215240479,
+        "wires": [
+            [
+                "33512052.1e603",
+                "8a4c0d52.3fcad"
+            ]
+        ]
+    },
+    {
+        "id": "33512052.1e603",
+        "type": "http response",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "x": 670.1001167297363,
+        "y": 195.4000301361084,
+        "wires": []
+    },
+    {
+        "id": "8a4c0d52.3fcad",
+        "type": "debug",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 690.1001167297363,
+        "y": 251.4000072479248,
+        "wires": []
+    },
+    {
+        "id": "d613be09.c03a8",
+        "type": "debug",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 459.1000671386719,
+        "y": 236.8000259399414,
+        "wires": []
+    }
+]
