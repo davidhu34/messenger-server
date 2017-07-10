@@ -12,8 +12,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 
 const bot = new botly({
-    verifyToken: VERIFY_TOKEN,
-    accessToken: ACCESS_TOKEN
+	verifyToken: VERIFY_TOKEN,
+	accessToken: ACCESS_TOKEN
 })
 
 let profiles = {}
@@ -106,9 +106,9 @@ const reply = (sender, message, data) => {
 }
 
 bot.on('message', (sender, message, data) => {
-    console.log('sender:',sender)
-    console.log('message:',message)
-    console.log('data:',data)
+	console.log('sender:',sender)
+	console.log('message:',message)
+	console.log('data:',data)
 
 	if (profiles[sender]) {
 		reply(sender, message, data)
