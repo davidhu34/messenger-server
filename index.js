@@ -29,14 +29,11 @@ const reply = (sender, message, data) => {
 			url: SIMILARITY_URL,
 			body: JSON.stringify({ url: data.attachments.image[0] })
 		}, (res, req, body) => {
-			console.log('body:',body)
 			const data = JSON.parse(body)
-			//	const sender = data.user
 			const name = profiles[sender].first_name
-			let elements = []
 			const similar_images = data.similar_images
-			console.log('Similarity Images: ' + similar_images)
-
+			
+			let elements = []
 			for (let i=0; i<3; i++) {
 				elements.push({
 					image_url: similar_images[i].metadata.url,
@@ -71,9 +68,7 @@ const reply = (sender, message, data) => {
 			url: CONVERSATION_URL,
 			body: JSON.stringify(payload)
 		}, (res, req, body) => {
-			console.log('body:',body)
 			const data = JSON.parse(body)
-			//const sender = data.user
 			const name = profiles[sender].first_name
 			const type = data.type
 			switch (type) {
@@ -106,9 +101,6 @@ const reply = (sender, message, data) => {
 }
 
 bot.on('message', (sender, message, data) => {
-	console.log('sender:',sender)
-	console.log('message:',message)
-	console.log('data:',data)
 
 	if (profiles[sender]) {
 		reply(sender, message, data)
