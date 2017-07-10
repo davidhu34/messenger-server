@@ -1,0 +1,505 @@
+[
+    {
+        "id": "f4e7ff41.b5021",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 571.8612365722656,
+        "y": 80.07224369049072,
+        "wires": []
+    },
+    {
+        "id": "ce954ba2.c4bbd8",
+        "type": "similarity-search-util-v3",
+        "z": "9389306c.6e538",
+        "name": "new collection",
+        "apikey": "__PWRD__",
+        "image-feature": "createCollection",
+        "x": 502.44445037841797,
+        "y": 465.63892555236816,
+        "wires": [
+            [
+                "acef733f.41351",
+                "b7704164.b1ec8"
+            ]
+        ]
+    },
+    {
+        "id": "a9b14263.6cf62",
+        "type": "similarity-search-util-v3",
+        "z": "9389306c.6e538",
+        "name": "Add img to collection",
+        "apikey": "",
+        "image-feature": "addImage",
+        "x": 374.91672134399414,
+        "y": 80.58338260650635,
+        "wires": [
+            [
+                "f4e7ff41.b5021"
+            ]
+        ]
+    },
+    {
+        "id": "cbe5641f.596d18",
+        "type": "similarity-search-util-v3",
+        "z": "9389306c.6e538",
+        "name": "collection details",
+        "apikey": "__PWRD__",
+        "image-feature": "getCollection",
+        "x": 509.94445037841797,
+        "y": 547.0389461517334,
+        "wires": [
+            [
+                "2947082c.07d1c8"
+            ]
+        ]
+    },
+    {
+        "id": "80132f91.3ef2f",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "collection name",
+        "func": "msg.params = {\n    \"name\": msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 303.44444274902344,
+        "y": 466.438925743103,
+        "wires": [
+            [
+                "ce954ba2.c4bbd8"
+            ]
+        ]
+    },
+    {
+        "id": "cdc387d1.402e58",
+        "type": "inject",
+        "z": "9389306c.6e538",
+        "name": "collection name",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 108.94446563720703,
+        "y": 466.23897552490234,
+        "wires": [
+            [
+                "80132f91.3ef2f"
+            ]
+        ]
+    },
+    {
+        "id": "acef733f.41351",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "collection id",
+        "func": "msg.params = {\n  \"collection_id\": msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 307.44447326660156,
+        "y": 547.6389465332031,
+        "wires": [
+            [
+                "cbe5641f.596d18"
+            ]
+        ]
+    },
+    {
+        "id": "b7704164.b1ec8",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 697.4444522857666,
+        "y": 464.8389263153076,
+        "wires": []
+    },
+    {
+        "id": "2947082c.07d1c8",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 700.4444541931152,
+        "y": 546.4389457702637,
+        "wires": []
+    },
+    {
+        "id": "95241842.e96fe8",
+        "type": "similarity-search-util-v3",
+        "z": "9389306c.6e538",
+        "name": "list collections",
+        "apikey": "5a6efe9771f0468edd3a13916b5c6c4a20e90fbf",
+        "image-feature": "listCollections",
+        "x": 455.22218322753906,
+        "y": 362.7501277923584,
+        "wires": [
+            [
+                "1cff8d68.cf1143"
+            ]
+        ]
+    },
+    {
+        "id": "18ddb15c.d0d4af",
+        "type": "inject",
+        "z": "9389306c.6e538",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 104.22223663330078,
+        "y": 362.7501277923584,
+        "wires": [
+            [
+                "95241842.e96fe8"
+            ]
+        ]
+    },
+    {
+        "id": "1cff8d68.cf1143",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 691.2222366333008,
+        "y": 362.75013256073,
+        "wires": []
+    },
+    {
+        "id": "86098ef8.61716",
+        "type": "similarity-search-util-v3",
+        "z": "9389306c.6e538",
+        "name": "delete collection",
+        "apikey": "5a6efe9771f0468edd3a13916b5c6c4a20e90fbf",
+        "image-feature": "deleteCollection",
+        "x": 504.2221794128418,
+        "y": 591.6390914916992,
+        "wires": [
+            [
+                "82f14532.9fdc48"
+            ]
+        ]
+    },
+    {
+        "id": "b64d9157.cfa75",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "collection id",
+        "func": "msg.params = {\n    \"collection_id\": msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300.22222900390625,
+        "y": 591.1501274108887,
+        "wires": [
+            [
+                "86098ef8.61716"
+            ]
+        ]
+    },
+    {
+        "id": "5012173c.5da9b8",
+        "type": "inject",
+        "z": "9389306c.6e538",
+        "name": "collection id",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 108.22223663330078,
+        "y": 591.1502070426941,
+        "wires": [
+            [
+                "b64d9157.cfa75"
+            ]
+        ]
+    },
+    {
+        "id": "82f14532.9fdc48",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 698.2222366333008,
+        "y": 590.8390445709229,
+        "wires": []
+    },
+    {
+        "id": "509b2e77.f852d",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "url",
+        "func": "msg.url = msg.req.body.url;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 401.75003814697266,
+        "y": 29.450008392333984,
+        "wires": [
+            [
+                "cb753924.e2e2f8"
+            ]
+        ]
+    },
+    {
+        "id": "cb753924.e2e2f8",
+        "type": "http request",
+        "z": "9389306c.6e538",
+        "name": "img buffer",
+        "method": "GET",
+        "ret": "bin",
+        "url": "",
+        "tls": "",
+        "x": 561.7499771118164,
+        "y": 29.45000171661377,
+        "wires": [
+            [
+                "d66ba0ac.dad1"
+            ]
+        ]
+    },
+    {
+        "id": "d66ba0ac.dad1",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "add img params",
+        "func": "msg.params = {\n    \"collection_id\": \"\",\n    \"image_file\": msg.payload,\n    \"metadata\": {\n        \"url\": msg.url\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 167.86105346679688,
+        "y": 79.6722183227539,
+        "wires": [
+            [
+                "a9b14263.6cf62"
+            ]
+        ]
+    },
+    {
+        "id": "24c7f446.e5285c",
+        "type": "inject",
+        "z": "9389306c.6e538",
+        "name": "some url",
+        "topic": "",
+        "payload": "https://www.sideshowtoy.com/photo.php?sku=902224&size=thumb",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 103.24998474121094,
+        "y": 30.53334140777588,
+        "wires": [
+            [
+                "fa5548a4.18b448"
+            ]
+        ]
+    },
+    {
+        "id": "fa5548a4.18b448",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "add manually",
+        "func": "msg.req = {};\nmsg.req.body = {};\nmsg.req.body.url = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 256.88890838623047,
+        "y": 29.85556983947754,
+        "wires": [
+            [
+                "509b2e77.f852d"
+            ]
+        ]
+    },
+    {
+        "id": "54fd80f4.b597a",
+        "type": "http in",
+        "z": "9389306c.6e538",
+        "name": "",
+        "url": "/similarity",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 136.37499237060547,
+        "y": 182.5999927520752,
+        "wires": [
+            [
+                "b86cb5ac.c80cf8"
+            ]
+        ]
+    },
+    {
+        "id": "b86cb5ac.c80cf8",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "url",
+        "func": "msg.url = JSON.parse(msg.req.body).url;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 307.00000762939453,
+        "y": 182.60004234313965,
+        "wires": [
+            [
+                "db4050f8.7bb96"
+            ]
+        ]
+    },
+    {
+        "id": "db4050f8.7bb96",
+        "type": "http request",
+        "z": "9389306c.6e538",
+        "name": "img buffer",
+        "method": "GET",
+        "ret": "bin",
+        "url": "",
+        "tls": "",
+        "x": 457.9999656677246,
+        "y": 183.3500051498413,
+        "wires": [
+            [
+                "cbe4ad2d.d964",
+                "4cbb8683.657298"
+            ]
+        ]
+    },
+    {
+        "id": "cbe4ad2d.d964",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "find similar param",
+        "func": "msg.params = {\n    \"collection_id\": \"\",\n    \"image_file\": msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 200.62491989135742,
+        "y": 245.600079536438,
+        "wires": [
+            [
+                "fd23496e.be13a8"
+            ]
+        ]
+    },
+    {
+        "id": "fd23496e.be13a8",
+        "type": "similarity-search-v3",
+        "z": "9389306c.6e538",
+        "name": "",
+        "apikey": "5a6efe9771f0468edd3a13916b5c6c4a20e90fbf",
+        "image-feature": "findSimilar",
+        "lang": "",
+        "x": 399.1249122619629,
+        "y": 245.350079536438,
+        "wires": [
+            [
+                "5c9e5c0a.c503f4",
+                "a778c159.efb9"
+            ]
+        ]
+    },
+    {
+        "id": "5c9e5c0a.c503f4",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 586.1251068115234,
+        "y": 244.35012912750244,
+        "wires": []
+    },
+    {
+        "id": "4cbb8683.657298",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 661.5000305175781,
+        "y": 182.0000171661377,
+        "wires": []
+    },
+    {
+        "id": "b9567231.39cd2",
+        "type": "function",
+        "z": "9389306c.6e538",
+        "name": "collection id",
+        "func": "msg.params = {\n  \"collection_id\": \"\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 275.62504959106445,
+        "y": 413.6000213623047,
+        "wires": [
+            [
+                "25dc3fd7.23117"
+            ]
+        ]
+    },
+    {
+        "id": "25dc3fd7.23117",
+        "type": "similarity-search-util-v3",
+        "z": "9389306c.6e538",
+        "name": "list imgs in collection",
+        "apikey": "5a6efe9771f0468edd3a13916b5c6c4a20e90fbf",
+        "image-feature": "listImages",
+        "x": 473.12499237060547,
+        "y": 413.3500213623047,
+        "wires": [
+            [
+                "88c5066.682aaf8"
+            ]
+        ]
+    },
+    {
+        "id": "88c5066.682aaf8",
+        "type": "debug",
+        "z": "9389306c.6e538",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 685.3751373291016,
+        "y": 413.6000564098358,
+        "wires": []
+    },
+    {
+        "id": "7055875c.96ded8",
+        "type": "inject",
+        "z": "9389306c.6e538",
+        "name": "collection id",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 109.10001373291016,
+        "y": 414.20000648498535,
+        "wires": [
+            [
+                "b9567231.39cd2"
+            ]
+        ]
+    },
+    {
+        "id": "a778c159.efb9",
+        "type": "http response",
+        "z": "9389306c.6e538",
+        "name": "",
+        "x": 597.1000366210938,
+        "y": 303.20001220703125,
+        "wires": []
+    }
+]

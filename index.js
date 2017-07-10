@@ -3,7 +3,7 @@ const request = require('request')
 const bodyParser = require('body-parser')
 const botly = require('botly')
 
-const { WEBHOOK, VERIFY_TOKEN, ACCESS_TOKEN, REPLY_URL } = require('../configs').FBBOT
+const { WEBHOOK, VERIFY_TOKEN, ACCESS_TOKEN, CONVERSATION_URL, SIMILARITY_URL } = require('./configs')
 
 
 const app = express()
@@ -24,19 +24,62 @@ const reply = (sender, message, data) => {
 		message: message,
 		data: data
 	}
-	request.post({
-		url: REPLY_URL,
-		body: payload
-	}, (res, req, body) => {
-		if (err) {
-			console.log(err)
-		} else {
+	if (data.attachments && data.attachments.image) {
+		request.post({
+			url: SIMILARITY_URL,
+			body: JSON.stringify({ url: data.attachments.image[0] })
+		}, (res, req, body) => {
+			console.log('body:',body)
 			const data = JSON.parse(body)
-			const sender = data.user
+			//	const sender = data.user
+			const name = profiles[sender].first_name
+			let elements = []
+			const similar_images = data.similar_images
+			console.log('Similarity Images: ' + similar_images)
+
+			for (let i=0; i<3; i++) {
+				elements.push({
+					image_url: similar_images[i].metadata.url,
+					title: '藝人 : '+similar_images[i].image_file,
+					subtitle: '相似度 : '+similar_images[i].score,
+					item_url: similar_images[i].metadata.url,
+					buttons: [{
+						type: 'web_url',
+						title: '照片',
+						url: similar_images[i].metadata.url
+					}]
+				})
+			}
+
+			bot.sendText({
+				id: sender,
+				text: '以下是這張照片的相似圖'
+			}, (e,d) => {
+				if (e) console.log('sendText error:', e)
+				else console.log('sendText callback:', d)
+			})
+			bot.sendGeneric({
+				id: sender,
+				elements: elements
+			}, (e, d) => {				
+				if (e) console.log('similarities error:', e)
+				else console.log('similarities callback:', d)
+			})
+		})
+	} else {	
+		request.post({
+			url: CONVERSATION_URL,
+			body: JSON.stringify(payload)
+		}, (res, req, body) => {
+			console.log('body:',body)
+			const data = JSON.parse(body)
+			//const sender = data.user
 			const name = profiles[sender].first_name
 			const type = data.type
 			switch (type) {
-				scase 'text':
+				case 'weather':
+					break;
+				case 'text':
 				default:
 					bot.sendText({
 						id: sender,
@@ -46,9 +89,8 @@ const reply = (sender, message, data) => {
 						else console.log('sendText callback:', d)
 					})
 			}
-		}
-	})
-
+		})
+	}
 }
 
 bot.on('message', (sender, message, data) => {
