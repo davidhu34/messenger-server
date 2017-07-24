@@ -4,7 +4,7 @@
         "type": "watson-conversation-v1",
         "z": "daa52f43.2dec2",
         "name": "",
-        "workspaceid": "",
+        "workspaceid": "89a67e22-42d8-4f4c-92e5-1481bb641150",
         "multiuser": true,
         "context": true,
         "x": 384.5000228881836,
@@ -12,7 +12,7 @@
         "wires": [
             [
                 "d7fdcdf6.cc248",
-                "ba77ff8c.5c6ee"
+                "1fd3fda8.35c0e2"
             ]
         ]
     },
@@ -339,5 +339,21 @@
         "x": 399.10009002685547,
         "y": 243.80003833770752,
         "wires": []
+    },
+    {
+        "id": "1fd3fda8.35c0e2",
+        "type": "function",
+        "z": "daa52f43.2dec2",
+        "name": "",
+        "func": "msg.payload.intents.push({ intent:'no_intent' });\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 95.10002899169922,
+        "y": 154.60000467300415,
+        "wires": [
+            [
+                "ba77ff8c.5c6ee"
+            ]
+        ]
     }
 ]
